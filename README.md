@@ -1,6 +1,6 @@
 # Monaco
 
-A simple, lightweight alternative to Auth.js. This only supports OAuth and is intentionally made to be basic and opinionated. We recommend using [Lucia](https://monaco-auth.com) for something more flexible.
+A simple, lightweight alternative to Auth.js. This only supports OAuth and is intentionally made to be basic and opinionated. We recommend using [Lucia](https://lucia-auth.com/) for something more flexible.
 
 For a full list of OAuth providers, see [`@monaco-auth/core`](https://github.com/pilcrowOnPaper/monaco/tree/main/packages/core).
 
