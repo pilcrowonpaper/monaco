@@ -49,6 +49,21 @@ export const handle: Handle = monaco(new PrismaAdapter(client), {
 });
 ```
 
+### Local types
+
+```ts
+// src/app.d.ts
+declare global {
+	namespace App {
+		interface Locals {
+			user: import("@monaco-auth/core").User | null;
+		}
+	}
+}
+
+export {};
+```
+
 ### Login page
 
 Create a login page in `src/routes/login/+page.svelte`.
