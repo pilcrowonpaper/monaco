@@ -6,11 +6,19 @@ See the [SvelteKit example](https://github.com/pilcrowOnPaper/monaco/tree/main/e
 
 ## Installation
 
+Install the integration with the core package:
+
 ```
-npm install @monaco-auth/sveltekit
+npm install @monaco-auth/sveltekit @monaco-auth/core
 ```
 
-## Usage
+Make sure to install an adapter as well:
+
+```
+npm install @monaco-auth/adapter-prisma
+```
+
+## Setup
 
 ### `.env`
 
@@ -36,7 +44,7 @@ import type { Handle } from "@sveltejs/kit";
 const client = new PrismaClient();
 
 export const handle: Handle = monacoSvelteKit(new PrismaAdapter(client), {
-	dev,
+	dev, // IMPORTANT!
 	providers: [new GitHubProvider(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)]
 });
 ```
@@ -60,4 +68,21 @@ A logout endpoint is automatically created.
 <form method="post" action="/logout"  >
 	<button>Sign out</button>
 </form>
+```
+
+## Usage
+
+You can access the current user in the server with `event.locals.user`.
+
+```ts
+// +page.server.ts
+import { redirect } from "@sveltejs/kit";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = async (event) => {
+	if (!event.locals.user) throw redirect(302, "/login");
+	return {
+		user: event.locals.user
+	};
+};
 ```
