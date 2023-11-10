@@ -268,7 +268,7 @@ export function getBaseURL(): string {
 		throw new Error("env var MONACO_URL not defined");
 	}
 	if (baseURL.endsWith("/")) {
-		baseURL = baseURL.split("/").slice(0, -1).join("/")
+		baseURL = baseURL.split("/").slice(0, -1).join("/");
 	}
-	return baseURL
+	return baseURL;
 }

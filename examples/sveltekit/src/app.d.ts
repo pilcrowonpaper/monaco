@@ -4,7 +4,7 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			user: import("@monaco-auth/core").User | null
+			user: import("@monaco-auth/core").User | null;
 		}
 		// interface PageData {}
 		// interface Platform {}
