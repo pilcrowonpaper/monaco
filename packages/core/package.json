@@ -19,7 +19,8 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/pilcrowOnPaper/monaco/tree/main/packages/core"
+		"url": "https://github.com/pilcrowOnPaper/monaco",
+		"directory": "packages/core"
 	},
 	"exports": {
 		".": "./dist/index.js",
