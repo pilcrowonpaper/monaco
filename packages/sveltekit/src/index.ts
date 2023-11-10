@@ -4,7 +4,7 @@ import { redirect, error } from "@sveltejs/kit";
 import type { Adapter, MonacoRequest, Provider, User } from "@monaco-auth/core";
 import type { Cookies as SvelteKitCookies } from "@sveltejs/kit";
 
-export function monacoSvelteKit(
+export function monaco(
 	adapter: Adapter,
 	options?: {
 		providers?: Provider[];

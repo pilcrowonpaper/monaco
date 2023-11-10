@@ -21,7 +21,7 @@ See [`@monaco-auth/sveltekit`](https://github.com/pilcrowOnPaper/monaco/tree/mai
 
 ```ts
 import { PrismaAdapter } from "@monaco-auth/adapter-prisma";
-import { monacoSvelteKit } from "@monaco-auth/sveltekit";
+import { monaco } from "@monaco-auth/sveltekit";
 import { GitHubProvider } from "@monaco-auth/core/providers";
 import { PrismaClient } from "@prisma/client";
 import { dev } from "$app/environment";
@@ -31,7 +31,7 @@ import type { Handle } from "@sveltejs/kit";
 
 const client = new PrismaClient();
 
-export const handle: Handle = monacoSvelteKit(new PrismaAdapter(client), {
+export const handle: Handle = monaco(new PrismaAdapter(client), {
 	dev,
 	providers: [new GitHubProvider(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)]
 });
