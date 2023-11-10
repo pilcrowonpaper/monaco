@@ -1,6 +1,6 @@
 # `@monaco-auth/sveltekit`
 
-SvelteKit integration for Monaco. For a full list of OAuth providers, see [`@lucia-auth/core`](https://github.com/pilcrowOnPaper/monaco/tree/main/packages/core).
+SvelteKit integration for Monaco. For a full list of OAuth providers, see [`@monaco-auth/core`](https://github.com/pilcrowOnPaper/monaco/tree/main/packages/core).
 
 See the [SvelteKit example](https://github.com/pilcrowOnPaper/monaco/tree/main/examples/sveltekit) for details.
 
@@ -45,7 +45,7 @@ export const handle: Handle = monacoSvelteKit(new PrismaAdapter(client), {
 
 Create a login page in `src/routes/login/+page.svelte`.
 
-See [`@lucia-auth/core` providers section](https://github.com/pilcrowOnPaper/monaco/tree/main/packages/core#providers) for each provider's login URL.
+See [`@monaco-auth/core` providers section](https://github.com/pilcrowOnPaper/monaco/tree/main/packages/core#providers) for each provider's login URL.
 
 ```svelte
 <h1>Sign in</h1>
