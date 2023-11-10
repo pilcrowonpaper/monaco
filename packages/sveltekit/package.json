@@ -1,7 +1,7 @@
 {
 	"name": "@monaco-auth/sveltekit",
 	"type": "module",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "SvelteKit integration for Monaco",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
