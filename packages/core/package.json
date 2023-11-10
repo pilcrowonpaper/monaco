@@ -1,0 +1,51 @@
+{
+	"name": "@monaco-auth/core",
+	"type": "module",
+	"version": "0.0.1",
+	"description": "The basic OAuth library",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"module": "dist/index.js",
+	"scripts": {
+		"build": "rm -rf dist/* && tsc",
+		"format": "prettier -w .",
+		"lint": "eslint src",
+		"test": "vitest run --sequence.concurrent"
+	},
+	"files": [
+		"/dist/"
+	],
+	"author": "pilcrowOnPaper",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pilcrowOnPaper/monaco"
+	},
+	"exports": {
+		".": "./dist/index.js",
+		"./providers": "./dist/providers/index.js"
+	},
+	"typesVersions": {
+		"*": {
+			".": [
+				"dist/index.d.ts"
+			],
+			"providers": [
+				"dist/providers/index.d.ts"
+			]
+		}
+	},
+	"devDependencies": {
+		"@types/node": "^20.8.6",
+		"@typescript-eslint/eslint-plugin": "^6.7.5",
+		"@typescript-eslint/parser": "^6.7.5",
+		"eslint": "^8.51.0",
+		"prettier": "^3.0.3",
+		"typescript": "^5.2.2"
+	},
+	"dependencies": {
+		"arctic": "0.3.1",
+		"lucia": "3.0.0-beta.5",
+		"oslo": "^0.22.0"
+	}
+}
