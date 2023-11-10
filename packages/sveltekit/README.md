@@ -12,6 +12,14 @@ npm install @monaco-auth/sveltekit
 
 ## Usage
 
+### `.env`
+
+Define the app url. If you define a path, all auth routes will be defined within it (e.g. `/auth/login/github`).
+
+```bash
+MONACO_BASE_URL="http://localhost:5173"
+```
+
 ### Hooks
 
 ```ts

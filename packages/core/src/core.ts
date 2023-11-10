@@ -1,7 +1,7 @@
 import { SessionController, SessionCookieController } from "oslo/session";
 import { TimeSpan } from "oslo";
 import { generateRandomString, alphabet } from "oslo/random";
-import { getRoute } from "./routing.js";
+import { getRoute, resolvePathname, sanitizePathname } from "./routing.js";
 
 import type { CookieAttributes } from "oslo/cookie";
 import type { Route } from "./routing.js";
@@ -18,6 +18,7 @@ export class Core {
 		options?: {
 			providers?: Provider[];
 			secureCookie?: boolean;
+			baseURL?: string;
 		}
 	) {
 		this.adapter = adapter;
@@ -95,7 +96,7 @@ export class Core {
 			return new RedirectResponse("/", cookies);
 		}
 		const user: User = {
-			id: generateRandomString(40, alphabet("0-9", "a-z")),
+			id: generateRandomString(15, alphabet("0-9", "a-z")),
 			email: providerUser.email,
 			emailVerified: providerUser.emailVerified,
 			username: providerUser.username,
@@ -154,18 +155,15 @@ export class Core {
 		return [user, cookies];
 	}
 
-	public getRoute(method: string, path: string): Route | null {
-		return getRoute(method, path);
-	}
-
-	public getProviders(): ProviderOption[] {
-		return this.providers.map((val): ProviderOption => {
-			return {
-				id: val.id,
-				name: val.id,
-				href: "/login" + val.id
-			};
-		});
+	public getRoute(method: string, pathname: string): Route | null {
+		const resolvedPathname = resolvePathname(
+			sanitizePathname(pathname),
+			new URL(getBaseURL()).pathname
+		);
+		if (!resolvedPathname) {
+			return null;
+		}
+		return getRoute(method, resolvedPathname);
 	}
 
 	private async createSession(userId: string): Promise<Session> {
@@ -223,7 +221,6 @@ export interface Adapter {
 
 export interface Provider {
 	id: string;
-	name: string;
 	createAuthorizationURL(): Promise<[url: URL, context: OAuthAuthorizationContext]>;
 	validateCallback(
 		searchParams: URLSearchParams,
@@ -234,12 +231,6 @@ export interface Provider {
 export interface OAuthAuthorizationContext {
 	state: string | null;
 	codeVerifier: string | null;
-}
-
-export interface ProviderOption {
-	id: string;
-	name: string;
-	href: string;
 }
 
 export interface Cookie {
@@ -269,4 +260,15 @@ export interface Session {
 	id: string;
 	userId: string;
 	expiresAt: Date;
+}
+
+export function getBaseURL(): string {
+	let baseURL = process.env.MONACO_BASE_URL;
+	if (!baseURL) {
+		throw new Error("env var MONACO_URL not defined");
+	}
+	if (baseURL.endsWith("/")) {
+		baseURL = baseURL.split("/").slice(0, -1).join("/")
+	}
+	return baseURL
 }

@@ -8,8 +8,7 @@ export type {
 	ProviderUser,
 	User,
 	Session,
-	MonacoResponse,
-	ProviderOption
+	MonacoResponse
 } from "./core.js";
 export type { Route, LoginRoute, LogoutRoute, CallbackRoute } from "./routing.js";
 export type { CookieAttributes } from "oslo/cookie";

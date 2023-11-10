@@ -12,6 +12,7 @@ Create a new GitHub OAuth app and copy/paste the credentials into `.env`:
 ```bash
 GITHUB_CLIENT_ID=""
 GITHUB_CLIENT_SECRET=""
+MONACO_BASE_URL="http://localhost:5173"
 ```
 
 Start the project:

@@ -25,6 +25,28 @@ export function getRoute(method: string, path: string): Route | null {
 	return null;
 }
 
+export function resolvePathname(pathname: string, base: string): string | null {
+	pathname = sanitizePathname(pathname);
+	base = sanitizePathname(base);
+	if (base === "/") {
+		return pathname;
+	}
+	if (pathname.startsWith(base)) {
+		return pathname.replace(base, "");
+	}
+	return null;
+}
+
+export function sanitizePathname(pathname: string): string {
+	return (
+		"/" +
+		pathname
+			.split("/")
+			.filter((val) => !!val)
+			.join("/")
+	);
+}
+
 export type Route = LoginRoute | CallbackRoute | LogoutRoute;
 
 export interface LoginRoute {

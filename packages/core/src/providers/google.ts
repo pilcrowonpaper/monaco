@@ -1,17 +1,17 @@
-import { GitHub, OAuth2RequestError, generateState } from "arctic";
+import { Google, OAuth2RequestError, generateState } from "arctic";
 import { getBaseURL } from "../core.js";
 
 import type { OAuthAuthorizationContext, Provider, ProviderUser } from "../core.js";
 
-export class GitHubProvider implements Provider {
-	public id = "github";
+export class GoogleProvider implements Provider {
+	public id = "google";
 
-	private oauth: GitHub;
+	private oauth: Google;
 
 	constructor(clientId: string, clientSecret: string) {
-		this.oauth = new GitHub(clientId, clientSecret, {
-			scope: ["user:email"],
-			redirectURI: getBaseURL() + "/login/github/callback"
+		const redirectURI = getBaseURL() + "/login/google/callback";
+		this.oauth = new Google(clientId, clientSecret, redirectURI, {
+			scope: ["https://www.googleapis.com/auth/userinfo.email"]
 		});
 	}
 
@@ -36,21 +36,13 @@ export class GitHubProvider implements Provider {
 		}
 		try {
 			const tokens = await this.oauth.validateAuthorizationCode(code);
-			const githubUser = await this.oauth.getUser(tokens.accessToken);
-			const emailResponse = await fetch("https://api.github.com/user/emails", {
-				headers: {
-					Authorization: `Bearer ${tokens.accessToken}`,
-					Accepts: "application/json"
-				}
-			});
-			const emails: GithubUserEmail[] = await emailResponse.json();
-			const primaryEmail = emails.find((val) => val.primary) ?? null;
+			const googleUser = await this.oauth.getUser(tokens.accessToken);
 			const providerUser: ProviderUser = {
-				id: githubUser.id.toString(),
-				email: primaryEmail?.email ?? null,
-				emailVerified: primaryEmail?.verified ?? false,
-				profileImage: githubUser.avatar_url,
-				username: githubUser.login
+				id: googleUser.sub,
+				email: googleUser.email ?? null,
+				emailVerified: googleUser.email_verified ?? false,
+				profileImage: googleUser.picture,
+				username: googleUser.name
 			};
 			return providerUser;
 		} catch (e) {
@@ -61,10 +53,4 @@ export class GitHubProvider implements Provider {
 			throw e;
 		}
 	}
-}
-
-interface GithubUserEmail {
-	email: string;
-	verified: boolean;
-	primary: boolean;
 }
