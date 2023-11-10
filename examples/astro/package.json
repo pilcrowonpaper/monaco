@@ -1,0 +1,25 @@
+{
+  "name": "astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.3.1",
+    "@astrojs/node": "^6.0.3",
+    "@monaco-auth/adapter-prisma": "workspace:*",
+    "@monaco-auth/astro": "workspace:*",
+    "@monaco-auth/core": "workspace:*",
+    "@prisma/client": "5.5.2",
+    "astro": "^3.5.0",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.5.2"
+  }
+}
